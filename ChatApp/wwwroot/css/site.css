@@ -7,6 +7,7 @@ a.navbar-brand {
   word-break: break-all;
 }
 
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -44,6 +45,11 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  margin-top: 0;
+  height: 90vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 .footer {
   position: absolute;
@@ -53,4 +59,101 @@ body {
   /* Set the fixed height of the footer here */
   height: 60px;
   line-height: 60px; /* Vertically center the text there */
+}
+.side-menu{
+  background-color: #343a40;
+  min-width: 100px;
+  z-index: 50;
+  box-shadow: 1px 0 2px 0 #343a40;
+  display: flex;
+  flex-direction: column;
+}
+.chat{
+  background-color: #eee;
+  flex-grow: 1s;
+  display: flex;
+  flex-direction: column;
+  width: 100% !important;
+  max-height: 97%;
+  padding: 0;
+  margin: 0;
+}
+.main{
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  height: 93.8vh;
+}
+.room-button{
+  border: 1px solid #000000;
+  color: white;
+  text-decoration: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin:0.75rem 1rem 0;
+  height: 68px;
+  border-radius: 5px;  
+  box-shadow: 0 1px 3px 1px #0f1113;
+  background-color: #4c565f;
+}
+
+.room-button > strong{
+  font-size: 36px;
+}
+.room-button :hover{
+  text-decoration: none !important;
+  color: white;
+  box-shadow: 0 1px 3px 1px #292f35;
+}
+.chat-body{
+  background-color: #eee;
+  flex-grow: 1;
+  flex-direction: column;
+  display: flex;
+  /* justify-content: flex-end; */
+  padding-bottom: 1rem;
+  overflow: auto;
+}
+.chat-input{
+   min-height: 70px;
+   background-color: #343a40;
+   z-index: 25;
+   display: flex !important;
+    flex-direction: column !important;
+    padding: 1rem;
+    box-sizing: border-box;
+   box-shadow: 0 -1px 2px 0 #343a40;
+}
+
+.message{
+  display: flex;
+  flex-direction: row;
+  margin-top: 0.2rem;
+}
+
+.message:first-child{
+  margin-top: auto;
+}
+.message > *{
+  padding: 0.2rem;
+}
+.message > header{
+  min-width: 100px;
+  text-align: right;
+  font-weight: bold;
+}
+.message > p{
+  margin: 0;
+  flex-grow: 5;
+}
+.message > footer{
+  min-width: 60px;
+  text-align: center;
+}
+.chat-input > input{
+  flex-grow: 2;
+}
+.chat-input > button{
+  flex-grow: 1;
 }
