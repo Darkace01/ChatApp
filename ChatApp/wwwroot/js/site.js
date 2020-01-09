@@ -2,3 +2,8 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+var createRoomBtn = document.getElementById('create-room')
+
+createRoomBtn.addEventListener('click', function(){
+    
+})

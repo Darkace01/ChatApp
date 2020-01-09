@@ -46,7 +46,7 @@
             <a class="room-button" href="#">
                 Room
             </a>
-            <a class="room-button" href="#">
+            <a class="room-button" id="create-room-btn" href="#">
                <strong>+</strong>
             </a>
         </div>
@@ -56,11 +56,15 @@
     </div>
 
     <div class="modal active">
+        
         <form asp-controller="" asp-action="" class="modal-body">
+            <button class="close">X</button>
             <header>Create Room</header>
-            <div></div>
+            <div>
+                <input>
+            </div>
             <footer>
-                <button></button>
+                <button>Create</button>
             </footer>
         </form>
     </div>
