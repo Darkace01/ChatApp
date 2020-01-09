@@ -41,15 +41,7 @@
         </nav>
     </header>
     <div class="main">
-        @* <partial name="_CookieConsentPartial" /> *@
-        <div class="side-menu">
-            <a class="room-button" href="#">
-                Room
-            </a>
-            <a class="room-button" id="create-room-btn" href="#">
-               <strong>+</strong>
-            </a>
-        </div>
+        <vc:room></vc:room>
         <div class="chat" class="pb-3" style="width:100%;">
             @RenderBody()
         </div>
