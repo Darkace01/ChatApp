@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using ChatApp.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ChatApp.Models;
 
 namespace ChatApp
 {
@@ -38,7 +39,7 @@ namespace ChatApp
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
+            services.AddDefaultIdentity<User>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 

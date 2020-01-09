@@ -31,11 +31,26 @@ namespace ChatApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet("{Id}")]
         public IActionResult Chat(int Id){
             var chat = _ctx.Chats
             .Include(x => x.Messages)
             .FirstOrDefault(x => x.Id == Id);
             return View(chat);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateMessage(int chatId,string message){
+            var Message = new Message{
+                ChatId = chatId,
+                Text = message,
+                Name= "Default",
+                Time = DateTime.Now
+            };
+            _ctx.Messages.Add(Message);
+            await _ctx.SaveChangesAsync();
+
+            return RedirectToAction("Chat", new{Id = chatId});
         }
 
         public IActionResult Privacy()
