@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ChatApp.Models;
 using ChatApp.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace ChatApp.Controllers
 {
@@ -28,6 +29,13 @@ namespace ChatApp.Controllers
             });
             await _ctx.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Chat(int Id){
+            var chat = _ctx.Chats
+            .Include(x => x.Messages)
+            .FirstOrDefault(x => x.Id == Id);
+            return View(chat);
         }
 
         public IActionResult Privacy()
