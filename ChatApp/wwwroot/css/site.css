@@ -157,3 +157,28 @@ body {
 .chat-input > button{
   flex-grow: 1;
 }
+
+.modal{
+  display: none;
+  position: fixed;
+  min-height: 100vh;
+  min-width: 100vw;
+  z-index: 200;
+  background-color: #4c565f;
+  top: 0;
+  left: 0;
+}
+.modal .active{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal-body{
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+.modal-body > header {
+  color: white;
+  font-size: 24px;
+}
