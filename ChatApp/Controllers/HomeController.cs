@@ -5,14 +5,29 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ChatApp.Models;
+using ChatApp.Data;
 
 namespace ChatApp.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationDbContext _ctx;
+        public HomeController(ApplicationDbContext ctx)
+        {
+            _ctx = ctx;
+        }
         public IActionResult Index()
         {
             return View();
+        }
+
+        public async Task<IActionResult> CreateRoom(string name){
+            _ctx.Chats.Add(new Chat{
+                Name = name,
+                Type = ChatType.Room,
+            });
+            await _ctx.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Privacy()
