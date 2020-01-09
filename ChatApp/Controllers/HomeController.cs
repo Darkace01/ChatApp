@@ -31,7 +31,7 @@ namespace ChatApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Chat(int Id){
+        public IActionResult Chat(int Id){
             var chat = _ctx.Chats
             .Include(x => x.Messages)
             .FirstOrDefault(x => x.Id == Id);

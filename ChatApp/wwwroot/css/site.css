@@ -63,6 +63,7 @@ body {
 .side-menu{
   background-color: #343a40;
   min-width: 100px;
+  max-width: 100px;
   z-index: 50;
   box-shadow: 1px 0 2px 0 #343a40;
   display: flex;
