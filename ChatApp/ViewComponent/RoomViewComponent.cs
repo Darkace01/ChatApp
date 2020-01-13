@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Security.Claims;
 using ChatApp.Data;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +13,10 @@ namespace ChatApp.ViewComponents
             _ctx = ctx;
         }
         public IViewComponentResult Invoke(){
-            var chats = _ctx.Chats.ToList();
+            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var chats = _ctx.ChatUsers
+            .Where(x => x.UserId == userId)
+            .ToList();
             return View(chats);
         }
     }

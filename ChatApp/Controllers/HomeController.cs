@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using ChatApp.Models;
 using ChatApp.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace ChatApp.Controllers
 {
@@ -23,10 +24,15 @@ namespace ChatApp.Controllers
         }
 
         public async Task<IActionResult> CreateRoom(string name){
-            _ctx.Chats.Add(new Chat{
+            var chat =new Chat{
                 Name = name,
                 Type = ChatType.Room,
+            };
+            chat.Users.Add(new ChatUser{
+                UserId = User.FindFirst(ClaimTypes.NameIdentifier).Value,
+                Role = UserRole.Admin
             });
+            _ctx.Chats.Add(chat);
             await _ctx.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -38,6 +44,8 @@ namespace ChatApp.Controllers
             .FirstOrDefault(x => x.Id == Id);
             return View(chat);
         }
+
+        
 
         [HttpPost]
         public async Task<IActionResult> CreateMessage(int chatId,string message){
@@ -51,6 +59,18 @@ namespace ChatApp.Controllers
             await _ctx.SaveChangesAsync();
 
             return RedirectToAction("Chat", new{Id = chatId});
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> JoinChat(int Id){
+            var chatUser = new ChatUser{
+                ChatId = Id,
+                UserId = User.FindFirst(ClaimTypes.NameIdentifier).Value,
+                Role = UserRole.Member
+            };
+            _ctx.ChatUsers.Add(chatUser);
+            await _ctx.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Privacy()
