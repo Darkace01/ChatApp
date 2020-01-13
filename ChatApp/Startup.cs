@@ -14,6 +14,7 @@ using ChatApp.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ChatApp.Models;
+using ChatApp.Hubs;
 
 namespace ChatApp
 {
@@ -70,7 +71,7 @@ namespace ChatApp
 
             app.UseSignalR(routes =>
             {
-
+                routes.MapHub<ChatHub>("/chatHub");
             });
 
             app.UseMvc(routes =>
