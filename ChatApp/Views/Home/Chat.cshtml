@@ -17,4 +17,24 @@
 
     @section scripts {
         <script src="~/js/signalr/signalr.min.js"></script>
+        <script>
+            var connection = new signalR.HubConnectionBuilder()
+                                    .withUrl("/chatHub")
+                                    .build();
+            
+            connection.on("RecieveMessage", function(data){
+                console.log(data)
+            })
+
+            connection.start()
+                        .then(function(){
+
+                        })
+                        .catch(function(err){
+                            console.log(err)
+                        })
+            var joinRoom = function() {
+                axios.post('/Chat/JoinRoom/{}/@Model.Name')
+            }
+        </script>
     }
