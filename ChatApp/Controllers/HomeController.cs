@@ -20,7 +20,8 @@ namespace ChatApp.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            
+            return View(_ctx.Chats.ToList());
         }
 
         public async Task<IActionResult> CreateRoom(string name){

@@ -1,19 +1,12 @@
-﻿@{
+﻿@model IEnumerable<Chat>
+@{
     ViewData["Title"] = "Home Page";
 }
 <div class="chat-body">
-   <div class="message">
-       <header>Anton:</header>
-       <p>This is a test message</p>
-       <footer>16:00</footer>
-   </div> 
-   <div class="message">
-       <header>Bob:</header>
-       <p>This is a dkjd  is a is a is a dkjd is a dkjd is a is a dkjd is a dkjd</p>
-       <footer>14:00</footer>
-   </div> 
-</div>
-<div class="chat-input">
-    <input type="text" class=" "/>
-    <button class="">Send</button>
+    @foreach (var chat in Model)
+    {
+        <a class="room-button" asp-controller="Home" asp-action="Chat" asp-route-id="@chat.Id">
+            @chat.Name
+        </a>
+    }
 </div>
