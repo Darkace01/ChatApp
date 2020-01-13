@@ -30,6 +30,7 @@ namespace ChatApp.Controllers{
             return Ok();
         }
 
+        [HttpPost("[action]")]
         public async Task<IActionResult> SendMessage(string message,string roomName, int chatId, [FromServices] ApplicationDbContext ctx){
 
             var messages = new Message{
@@ -41,7 +42,11 @@ namespace ChatApp.Controllers{
             ctx.Messages.Add(messages);
             await ctx.SaveChangesAsync();
             
-            await _chat.Clients.Group(roomName).SendAsync("RecieveMessage", messages);
+            await _chat.Clients.Group(roomName).SendAsync("RecieveMessage", new {
+                Text = messages.Text,
+                Name = messages.Name,
+                Time = messages.Time.ToString("dd/MM/yyyy hh:mm:ss")
+            });
             return Ok();
         }
     }
