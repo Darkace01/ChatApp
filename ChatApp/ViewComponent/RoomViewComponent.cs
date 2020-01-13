@@ -18,6 +18,7 @@ namespace ChatApp.ViewComponents
             var chats = _ctx.ChatUsers
             .Include(x => x.Chat)
             .Where(x => x.UserId == userId)
+            .Select(x => x.Chat)
             .ToList();
             return View(chats);
         }

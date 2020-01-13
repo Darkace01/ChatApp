@@ -41,7 +41,7 @@
         </nav>
     </header>
     <div class="main">
-        if(User.Identity.IsAuthenticated){
+        @if(User.Identity.IsAuthenticated){
             <vc:room></vc:room>
         }        
         <div class="chat" class="pb-3" style="width:100%;">

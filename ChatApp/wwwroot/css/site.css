@@ -97,6 +97,7 @@ body {
   border-radius: 5px;  
   box-shadow: 0 1px 3px 1px #0f1113;
   background-color: #4c565f;
+  padding: .5rem;
 }
 
 .room-button > strong{
