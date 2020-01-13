@@ -20,8 +20,12 @@ namespace ChatApp.Controllers
         }
         public IActionResult Index()
         {
-            
-            return View(_ctx.Chats.ToList());
+            var chats = _ctx.Chats
+            .Include(x => x.Users)
+            .Where(x => !x.Users
+            .Any(y => y.UserId == User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            .ToList();
+            return View(chats);
         }
 
         public async Task<IActionResult> CreateRoom(string name){
@@ -62,7 +66,7 @@ namespace ChatApp.Controllers
             return RedirectToAction("Chat", new{Id = chatId});
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> JoinChat(int Id){
             var chatUser = new ChatUser{
                 ChatId = Id,
@@ -71,7 +75,7 @@ namespace ChatApp.Controllers
             };
             _ctx.ChatUsers.Add(chatUser);
             await _ctx.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Chat" , "Home",new{id = Id});
         }
 
         public IActionResult Privacy()
