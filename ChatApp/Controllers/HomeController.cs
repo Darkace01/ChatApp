@@ -44,7 +44,7 @@ namespace ChatApp.Controllers
             var Message = new Message{
                 ChatId = chatId,
                 Text = message,
-                Name= "Default",
+                Name= User.Identity.Name,
                 Time = DateTime.Now
             };
             _ctx.Messages.Add(Message);
