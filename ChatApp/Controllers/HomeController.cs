@@ -53,14 +53,14 @@ namespace ChatApp.Controllers
         
 
         [HttpPost]
-        public async Task<IActionResult> CreateMessage(int chatId,string message){
-            var Message = new Message{
+        public async Task<IActionResult> CreateMessage(int chatId,string messageText){
+            var message = new Message{
                 ChatId = chatId,
-                Text = message,
+                Text = messageText,
                 Name= User.Identity.Name,
                 Time = DateTime.Now
             };
-            _ctx.Messages.Add(Message);
+            _ctx.Messages.Add(message);
             await _ctx.SaveChangesAsync();
 
             return RedirectToAction("Chat", new{Id = chatId});
