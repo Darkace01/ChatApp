@@ -28,6 +28,29 @@ namespace ChatApp.Controllers
             return View(chats);
         }
 
+        public IActionResult Find(){
+            var users = _ctx.Users
+                        .Where(x => x.Id != User.FindFirst(ClaimTypes.NameIdentifier).Value)
+                        .ToList();
+            return View(users);
+        }
+
+        public async Task<IActionResult> CreatePrivateRoom(string userId){
+            var chat = new Chat {
+                Type = ChatType.Private
+            };
+            chat.Users.Add(new ChatUser{
+                UserId = userId
+            });
+            chat.Users.Add(new ChatUser {
+                UserId = User.FindFirst(ClaimTypes.NameIdentifier).Value
+            });
+            _ctx.Chats.Add(chat);
+            await _ctx.SaveChangesAsync();
+
+            return RedirectToAction("CHat", new {id = chat.Id});
+        }
+
         public async Task<IActionResult> CreateRoom(string name){
             var chat =new Chat{
                 Name = name,
