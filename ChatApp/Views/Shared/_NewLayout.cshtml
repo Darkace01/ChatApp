@@ -22,7 +22,7 @@
 </head>
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
-        <partial name="_SideBarPartial" />
+        <partial name="_NavBarPartial" />
         @* <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow ">
             <div class="container">
@@ -57,8 +57,10 @@
         }else{
             <partial name="_SideBarPartial" />
         }       
-        <div class="chat" class="pb-3" style="width:100%;">
+        <div class="chat content" class="pb-3" style="width:100%;">
+            <div class="container-fluid">
             @RenderBody()
+            </div>
         </div>
     </div>
 
