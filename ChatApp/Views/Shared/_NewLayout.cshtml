@@ -22,7 +22,8 @@
 </head>
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
-        <header>
+        <partial name="_SideBarPartial" />
+        @* <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow ">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ChatApp</a>
@@ -47,7 +48,8 @@
                 </div>
             </div>
         </nav>
-    </header>
+        
+    </header> *@
     <div class="main">
         @if(User.Identity.IsAuthenticated){
             <vc:room></vc:room>
