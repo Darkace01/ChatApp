@@ -1,10 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ChatApp</title>
 
+    
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     </environment>
@@ -16,9 +17,12 @@
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"/>
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/adminlte.min.css"/>
+    <link rel="stylesheet" href="~/css/all.min.css"/>
 </head>
-<body>
-    <header>
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+        <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow ">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ChatApp</a>
@@ -35,8 +39,9 @@
                         </li>
                         <li class="nav-item">
                         <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Find">Find</a>
+                        </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">About</a>
+                        <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Private">Private</a>
                         </li>
                     </ul>
                 </div>
@@ -46,7 +51,10 @@
     <div class="main">
         @if(User.Identity.IsAuthenticated){
             <vc:room></vc:room>
-        }        
+            <partial name="_SideBarPartial" />
+        }else{
+            <partial name="_SideBarPartial" />
+        }       
         <div class="chat" class="pb-3" style="width:100%;">
             @RenderBody()
         </div>
@@ -64,6 +72,7 @@
                 <button>Create</button>
             </footer>
         </form>
+    </div>
     </div>
 
     <environment include="Development">
@@ -85,6 +94,10 @@
         </script>
     </environment>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/adminlte.js" asp-append-version="true"></script>
+    <script src="~/js/Chart.js" asp-append-version="true"></script>
+    <script src="~/js/demo.js" asp-append-version="true"></script>
+    <script src="~/js/dashboard3.js" asp-append-version="true"></script>
 
     @RenderSection("Scripts", required: false)
 </body>
