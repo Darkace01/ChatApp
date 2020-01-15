@@ -1,65 +1,56 @@
+@* @model IEnumerable<ChatApp.Models.Chat> *@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
-@model IEnumerable<ChatApp.Models.Chat>
-
-
-  <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="#" class="brand-link">
-      <img src="~/img/AdminLTELogo.png" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">COMPANY TITLE</span>
-    </a>
-
-    @if (SignInManager.IsSignedIn(User))
-{
-    <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="~/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" class="d-block">@User.Identity.Name</a>
-        </div>
-      </div>
-    </div>
-}
-else
-{
-  <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="~/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">Admin</a>
-        </div>
-      </div>
-  </div>
-}
-    <!-- Sidebar -->
     
 
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
+      <!-- Main Sidebar Container -->
+      <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a asp-controller="Home" asp-action="Index" class="brand-link">
+          <img src="~/img/AdminLTELogo.png" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+          <span class="brand-text font-weight-light">CHAT APP</span>
+        </a>
+        <div class="sidebar">
+          @if(User.Identity.IsAuthenticated){
+          <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+              <img src="~/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+            </div>
+            <div class="info">
+              <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"
+                class="d-block">@User.Identity.Name</a>
+            </div>
+          </div>
+          }
+          else
+          {
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+              <div class="image">
+                <img src="~/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+              </div>
+              <div class="info">
+                <a href="#" class="d-block">Admin</a>
+              </div>
+            </div>
+          }
+          <!-- Sidebar -->
+          <!-- Sidebar Menu -->
+          <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+              <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-           <li class="nav-item">
-            <a data-toggle="modal" data-target="#modal-secondary" class="nav-link">
-              <i class="fa fa-plus"></i>
-              <p>
-                 Create
-              </p>
-            </a>
-          </li>
-          <vc:room></vc:room>
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
+              <li class="nav-item">
+                <a data-toggle="modal" data-target="#modal-secondary" class="nav-link">
+                  <i class="fa fa-plus"></i>
+                  <p>
+                    Create
+                  </p>
+                </a>
+              </li>
+              <vc:room></vc:room>
+            </ul>
+          </nav>
+          <!-- /.sidebar-menu -->
+        </div>
+      </aside>
