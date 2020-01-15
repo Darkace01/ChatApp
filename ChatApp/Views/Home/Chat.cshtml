@@ -1,19 +1,111 @@
 @model ChatApp.Models.Chat
-<div class="chat-body">
+@{
+    ViewData["Title"] = "Chat";
+    var userName = User.Identity.Name;
+}
+                <div class="content-wrapper">
+    <div class="content">
+        <div class="container-fluid">
+    <div class="row">
+  <div class="col-md-12 mx-auto">
+      <div class="card-body">
+        <!-- Conversations are loaded here -->
+        <div class="direct-chat-messages">
+            <!-- DIRECT CHAT SUCCESS -->
+    <div class="card card-sucress cardutline direct-chat direct-chat-success">
    @foreach(var message in Model.Messages){
-       <div class="message">
+       string direction, timePosition, userPosition,img;
+                if (userName == message.Name)
+                {
+                    direction = "right";
+                    timePosition = "float-left";
+                    userPosition = "float-right";
+                }
+                else
+                {
+                    direction = "";
+                    timePosition = "float-right";
+                    userPosition = "float-left";
+                }
+
+                if(Model.Users.User.ImgUrl == null){
+                    img = "~/img/user2-160x160.jpg"
+                }else{
+                    img = "~/img/user2-160x160.jpg"
+                }
+
+      
+          <!-- Message. Default to the left -->
+          <div class="direct-chat-msg @direction">
+            <div class="direct-chat-infos clearfix">
+              <span class="direct-chat-name @userPosition">@message.Name</span>
+              <span class="direct-chat-timestamp @timePosition">@message.Time</span>
+            </div>
+            <!-- /.direct-chat-infos -->
+            <img class="direct-chat-img" src="@img" alt="Message User Image">
+            <!-- /.direct-chat-img -->
+            <div class="direct-chat-text">
+              @message.Text
+            </div>
+            <!-- /.direct-chat-text -->
+          </div>
+          <!-- /.direct-chat-msg -->
+
+          
+        
+      <!-- /.card-body -->
+      
+   
+  
+       @* <div class="message">
        <header>@message.Name</header>
        <p>@message.Text</p>
        <footer>@message.Time</footer>
-   </div>  
+   </div>   *@
    }
+   
+   </div>
+        <!--/.direct-chat-messages-->
+      </div>
+      <div class="card-footer">
+        <form onsubmit="sendMessage(event)" asp-controller="Home" asp-action="CreateMessage">
+          <div class="input-group">
+              <input type="hidden" name="roomId" value="@Model.Id">
+            <input type="text" name="message" id="message-input" placeholder="Type Message ..." class="form-control">
+            <span class="input-group-append">
+              <button type="submit" class="btn btn-success">Send</button>
+            </span>
+          </div>
+        </form>
+      </div>
+      <!-- /.card-footer-->
 </div>
 
-    <form onsubmit="sendMessage(event)" asp-controller="Home" asp-action="CreateMessage"  class="chat-input">
+  <!-- /.col -->
+
+    </div>
+    <!--/.direct-chat -->
+</div>
+    </div>
+</div>
+ </div>
+    <!--/.direct-chat -->
+    @* <form onsubmit="sendMessage(event)" asp-controller="Home" asp-action="CreateMessage"  class="chat-input">
         <input type="hidden" name="roomId" value="@Model.Id">
         <input type="text" name="message" id="message-input"/>
     <button type="submit" class="">Send</button>
-    </form>
+    </form> *@
+
+
+
+
+
+
+
+
+
+
+
 
     @section scripts {
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -73,6 +165,7 @@
                 event.preventDefault();
                 var data = new FormData(event.target);
                 document.getElementById('message-input').value = '';
+                document.getElementById('message-input').placeholder = '';
                 axios.post('/Chat/SendMessage',data)
                 .then(res => {
                     console.log("Message Sent!")
