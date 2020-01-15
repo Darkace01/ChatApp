@@ -54,7 +54,7 @@
     </header> *@
     <div class="main">
         @if(User.Identity.IsAuthenticated){
-            <vc:room></vc:room>
+            @* <vc:room></vc:room> *@
             <partial name="_SideBarPartial" />
         }else{
             <partial name="_SideBarPartial" />
@@ -79,6 +79,27 @@
             </footer>
         </form>
     </div>
+    @* Create Room Modal *@
+     <div class="modal fade" id="modal-secondary">
+        <div class="modal-dialog">
+          <div class="modal-content bg-secondary">
+            <div class="modal-header">
+              <h4 class="modal-title">Create Room</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            </div>
+            <form asp-controller="Home" asp-action="CreateRoom">
+            <div class="modal-body">
+                <input class="form-control" name="name" placeholder="Room Name">
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+               <button type="submit" class="btn btn-outline-light">Create</button>
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
 
     <environment include="Development">

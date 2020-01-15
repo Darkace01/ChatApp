@@ -179,13 +179,13 @@ body {
   justify-content: center;
   align-items: center;
 }
-.modal-body{
+/* .modal-body{
   max-width: 300px;
   display: flex;
   flex-direction: column;
   background-color: #343a40;
   padding: 1rem;
-}
+} */
 
 .modal-body > *{
   margin-top: 0.5rem;

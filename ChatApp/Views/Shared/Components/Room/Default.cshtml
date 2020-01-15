@@ -1,6 +1,19 @@
 @model IEnumerable<ChatApp.Models.Chat>
 
-   <div class="side-menu">
+@foreach(var chat in Model){
+          <li class="nav-item">
+            <a asp-controller="Home" asp-action="Chat" asp-route-Id="@chat.Id" class="nav-link">
+              <i class="far fa-folder-open"></i>
+              <p>
+                @chat.Name
+                <!-- <span class="right badge badge-danger">New</span> -->
+              </p>
+            </a>
+          </li>
+          
+               }
+
+   @* <div class="side-menu">
         @foreach(var chat in Model){
         <a class="room-button" asp-controller="Home" asp-action="Chat" asp-route-Id="@chat.Id">
                 @chat.Name
@@ -10,4 +23,4 @@
     <a class="room-button" id="create-room-btn" href="#">
                <strong>+</strong>
             </a>
-   </div>
+   </div> *@
