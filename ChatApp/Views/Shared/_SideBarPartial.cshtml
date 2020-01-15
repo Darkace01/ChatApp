@@ -1,3 +1,17 @@
+@model IEnumerable<ChatApp.Models.Chat>
+
+   @* <div class="side-menu">
+        @foreach(var chat in Model){
+        <a class="room-button" asp-controller="Home" asp-action="Chat" asp-route-Id="@chat.Id">
+                @chat.Name
+            </a>
+            
+    }
+    <a class="room-button" id="create-room-btn" href="#">
+               <strong>+</strong>
+            </a>
+   </div> *@
+
 <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -24,18 +38,18 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+               @foreach(var chat in Model){
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a class="room-button" asp-controller="Home" asp-action="Chat" asp-route-Id="@chat.Id" class="nav-link">
               <i class="far fa-folder-open"></i>
               <p>
-                Company details
+                @chat.Name
                 <!-- <span class="right badge badge-danger">New</span> -->
               </p>
             </a>
           </li>
           
-
-
+               }
       </nav>
       <!-- /.sidebar-menu -->
     </div>
