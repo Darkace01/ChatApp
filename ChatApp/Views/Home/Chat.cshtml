@@ -14,12 +14,14 @@
             <!-- DIRECT CHAT SUCCESS -->
     <div class="card card-sucress cardutline direct-chat direct-chat-success">
    @foreach(var message in Model.Messages){
-       string direction, timePosition, userPosition,img;
+       string direction, timePosition, userPosition, hello;
+        hello = "";
                 if (userName == message.Name)
                 {
                     direction = "right";
                     timePosition = "float-left";
                     userPosition = "float-right";
+                    hello = "";
                 }
                 else
                 {
@@ -28,12 +30,13 @@
                     userPosition = "float-left";
                 }
 
-                if(Model.Users.User.ImgUrl == null){
-                    img = "~/img/user2-160x160.jpg"
+               foreach(var user in Model.Users){
+                    if(user.User.ImgUrl == null){
+                    hello = "~/img/user2-160x160.jpg";
                 }else{
-                    img = "~/img/user2-160x160.jpg"
+                    hello = "~/img/user2-160x160.jpg";
                 }
-
+               }
       
           <!-- Message. Default to the left -->
           <div class="direct-chat-msg @direction">
@@ -41,13 +44,10 @@
               <span class="direct-chat-name @userPosition">@message.Name</span>
               <span class="direct-chat-timestamp @timePosition">@message.Time</span>
             </div>
-            <!-- /.direct-chat-infos -->
-            <img class="direct-chat-img" src="@img" alt="Message User Image">
-            <!-- /.direct-chat-img -->
+            <img class="direct-chat-img" src="@@hello" alt="@message.Name">
             <div class="direct-chat-text">
               @message.Text
             </div>
-            <!-- /.direct-chat-text -->
           </div>
           <!-- /.direct-chat-msg -->
 
@@ -55,13 +55,6 @@
         
       <!-- /.card-body -->
       
-   
-  
-       @* <div class="message">
-       <header>@message.Name</header>
-       <p>@message.Text</p>
-       <footer>@message.Time</footer>
-   </div>   *@
    }
    
    </div>
