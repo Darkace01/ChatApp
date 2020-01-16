@@ -63,8 +63,8 @@ var userName = User.Identity.Name;
                         <div class="card-footer">
                             <form onsubmit="sendMessage(event)" asp-controller="Home" asp-action="CreateMessage">
                                 <div class="input-group">
-                                    <input type="hidden" name="chatId" value="@Model.Id">
-                                    <input type="text" name="messageText" id="message-input" placeholder="Type Message ..."
+                                    <input type="hidden" name="roomId" value="@Model.Id">
+                                    <input type="text" name="message" id="message-input" placeholder="Type Message ..."
                                         class="form-control">
                                     <span class="input-group-append">
                                         <button type="submit" class="btn btn-success">Send</button>
@@ -97,14 +97,14 @@ var userName = User.Identity.Name;
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="~/js/signalr/signalr.min.js"></script>
 <script>
-    var logUser = document.getElementById("usernow").value;
+    
     var connection = new signalR.HubConnectionBuilder()
-        .withUrl("/chatHub")
-        .build();
-
+                                    .withUrl("/chatHub")
+                                    .build();
+            
     var _connectionId = '';
-
-    connection.on("RecieveMessage", function (data) {
+    var logUser = document.getElementById("usernow").value;
+    connection.on("RecieveMessage", function(data){
         var message = document.createElement("div")
                 message.classList.add('direct-chat-msg')
                 
@@ -157,9 +157,23 @@ var userName = User.Identity.Name;
         var url = '/Chat/JoinRoom/' + _connectionId + '/@Model.Id'
         axios.post(url, null)
             .then(res => {
-                console.log("Room Joined!";
+                console.log("Room Joined!")
             }).catch(err => {
                 console.err("Failed to Join Room! ")
+            })
+    }
+
+    var sendMessage = function (event) {
+        event.preventDefault();
+        var data = new FormData(event.target);
+        document.getElementById('message-input').value = '';
+        document.getElementById('message-input').placeholder = '';
+        axios.post('/Chat/SendMessage', data)
+            .then(res => {
+                console.log("Message Sent!")
+            })
+            .catch(err => {
+                console.log("Failed to send message!")
             })
     }
 
@@ -176,18 +190,6 @@ var userName = User.Identity.Name;
             console.log(err)
         })
 
-    var sendMessage = function (event) {
-        event.preventDefault();
-        var data = new FormData(event.target);
-        document.getElementById('message-input').value = '';
-        document.getElementById('message-input').placeholder = '';
-        axios.post('/Chat/SendMessage', data)
-            .then(res => {
-                console.log("Message Sent!")
-            })
-            .catch(err => {
-                console.log("Failed to send message!")
-            })
-    }
+    
 </script>
 }

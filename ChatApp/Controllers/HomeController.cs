@@ -89,17 +89,17 @@ namespace ChatApp.Controllers
         
 
         [HttpPost]
-        public async Task<IActionResult> CreateMessage(int chatId,string messageText){
-            var message = new Message{
-                ChatId = chatId,
-                Text = messageText,
+        public async Task<IActionResult> CreateMessage(int roomId,string message){
+            var messages = new Message{
+                ChatId = roomId,
+                Text = message,
                 Name= User.Identity.Name,
                 Time = DateTime.Now
             };
-            _ctx.Messages.Add(message);
+            _ctx.Messages.Add(messages);
             await _ctx.SaveChangesAsync();
 
-            return RedirectToAction("Chat", new{Id = chatId});
+            return RedirectToAction("Chat", new{Id = roomId});
         }
 
         [HttpGet]
