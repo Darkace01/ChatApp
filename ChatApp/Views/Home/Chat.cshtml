@@ -106,12 +106,13 @@ var userName = User.Identity.Name;
     var logUser = document.getElementById("usernow").value;
     connection.on("RecieveMessage", function(data){
         var message = document.createElement("div")
+        console.log(message)
                 message.classList.add('direct-chat-msg')
                 
         var subMessage = document.createElement('div')
                 subMessage.classList.add('direct-chat-infos')
                 subMessage.classList.add('clearfix')
-
+                var namee = data.name;
         var username = document.createElement("span")
         username.appendChild(document.createTextNode(data.name))
         
@@ -125,23 +126,29 @@ var userName = User.Identity.Name;
         img.src = "img/user2-160x160.jpg";
 
         
+        if(logUser == namee){
+            message.classList.add('right')
+            username.classList.add('float-right')
+            time.classList.add('float-left')
+        }else{
+            username.classList.add('float-left')
+            time.classList.add('float-right')
+        }
         username.classList.add('direct-chat-name')
         
         text.classList.add('direct-chat-text')
         time.classList.add('direct-chat-timestamp')
         img.classList.add('direct-chat-img')
 
-         //bug
-        
-        //bug-end
 
+        message.appendChild(subMessage);
         subMessage.appendChild(time);
         subMessage.appendChild(username);
         message.appendChild(img);
         message.appendChild(text);
 
+
         var body = document.querySelector('.direct-chat')
-        
         body.append(message);
     })
 
