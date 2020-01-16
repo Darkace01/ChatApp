@@ -4,7 +4,7 @@ ViewData["Title"] = "Chat";
 var userName = User.Identity.Name;
 }
 <input hidden value="@userName" id="usernow">
-<div class="content-wrapper">
+<div class="">
     <div class="content">
         <div class="container-fluid">
             <div class="row">
@@ -63,8 +63,8 @@ var userName = User.Identity.Name;
                         <div class="card-footer">
                             <form onsubmit="sendMessage(event)" asp-controller="Home" asp-action="CreateMessage">
                                 <div class="input-group">
-                                    <input type="hidden" name="roomId" value="@Model.Id">
-                                    <input type="text" name="message" id="message-input" placeholder="Type Message ..."
+                                    <input type="hidden" name="chatId" value="@Model.Id">
+                                    <input type="text" name="messageText" id="message-input" placeholder="Type Message ..."
                                         class="form-control">
                                     <span class="input-group-append">
                                         <button type="submit" class="btn btn-success">Send</button>
@@ -89,14 +89,6 @@ var userName = User.Identity.Name;
     <input type="text" name="message" id="message-input" />
     <button type="submit" class="">Send</button>
 </form> *@
-
-
-
-
-
-
-
-
 
 
 
@@ -132,6 +124,13 @@ var userName = User.Identity.Name;
         var img = document.createElement("img")
         img.src = "img/user2-160x160.jpg";
 
+        
+        username.classList.add('direct-chat-name')
+        
+        text.classList.add('direct-chat-text')
+        time.classList.add('direct-chat-timestamp')
+        img.classList.add('direct-chat-img')
+
         if(logUser == data.name){
             message.classList.add('right')
             username.classList.add('float-right')
@@ -141,11 +140,6 @@ var userName = User.Identity.Name;
             username.classList.add('float-left')
             time.classList.add('float-right')
         }
-        username.classList.add('direct-chat-name')
-        
-        text.classList.add('direct-chat-text')
-        time.classList.add('direct-chat-timestamp')
-        img.classList.add('direct-chat-img')
 
 
         subMessage.appendChild(time);
@@ -155,7 +149,7 @@ var userName = User.Identity.Name;
         
 
         var body = document.querySelector('.direct-chat')
-        console.log("we don reach here")
+        
         body.append(message);
     })
 
@@ -163,9 +157,9 @@ var userName = User.Identity.Name;
         var url = '/Chat/JoinRoom/' + _connectionId + '/@Model.Id'
         axios.post(url, null)
             .then(res => {
-                console.log("Room Joined! with this connection Id =" + _connectionId, res);
+                console.log("Room Joined!";
             }).catch(err => {
-                console.err("Failed to Join Room! ", res)
+                console.err("Failed to Join Room! ")
             })
     }
 

@@ -5,7 +5,7 @@
     
 
       <!-- Main Sidebar Container -->
-      <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <aside class="main-sidebar sidebar-dark-primary elevation-10">
         <!-- Brand Logo -->
         <a asp-controller="Home" asp-action="Index" class="brand-link">
           <img src="~/img/AdminLTELogo.png" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
@@ -48,7 +48,9 @@
                   </p>
                 </a>
               </li>
+              @if(User.Identity.IsAuthenticated){
               <vc:room></vc:room>
+              }
             </ul>
           </nav>
           <!-- /.sidebar-menu -->
