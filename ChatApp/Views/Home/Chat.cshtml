@@ -131,6 +131,7 @@ var userName = User.Identity.Name;
         time.classList.add('direct-chat-timestamp')
         img.classList.add('direct-chat-img')
 
+         //bug
         if(logUser == data.name){
             message.classList.add('right')
             username.classList.add('float-right')
@@ -140,13 +141,12 @@ var userName = User.Identity.Name;
             username.classList.add('float-left')
             time.classList.add('float-right')
         }
-
+        //bug-end
 
         subMessage.appendChild(time);
         subMessage.appendChild(username);
         message.appendChild(img);
         message.appendChild(text);
-        
 
         var body = document.querySelector('.direct-chat')
         
