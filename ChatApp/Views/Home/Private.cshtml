@@ -6,11 +6,29 @@
 @{
     var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 }
-<div class="chat-body">
+@* <div class="chat-body">
     @foreach (var chat in Model)
     {
         <a class="room-button" asp-controller="Home" asp-action="Chat" asp-route-id="@chat.Id">
             @chat.Users.FirstOrDefault(x => x.UserId != userId).User.UserName
         </a>
     }
-</div>
+</div> *@
+<div class="container-fluid pt-3">
+    <div class="row">
+        @foreach (var chat in Model)
+    {
+        <!-- Info Boxes Style 2 -->
+            <div class="info-box mb-3 bg-info mr-3">
+              <span class="info-box-icon"><i class="fa fa-comment"></i></span>
+
+              <div class="info-box-content">
+                <a class="info-box-text" style="color:white" asp-controller="Home" asp-action="Chat" asp-route-id="@chat.Id">@chat.Users.FirstOrDefault(x => x.UserId != userId).User.UserName</a>
+                @* <span class="info-box-number">5,200</span> *@
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+    }
+    </div>
+    </div>

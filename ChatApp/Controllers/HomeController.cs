@@ -23,6 +23,7 @@ namespace ChatApp.Controllers
         public IActionResult Index()
         {
             var chats = _ctx.Chats
+            .Where(x => x.Type != ChatType.Private)
             .Include(x => x.Users)
             .Where(x => !x.Users
             .Any(y => y.UserId == User.FindFirst(ClaimTypes.NameIdentifier).Value))
@@ -48,18 +49,7 @@ namespace ChatApp.Controllers
             return View(chats);
         }
 
-        public async Task<IActionResult> CreatePrivateRoom(string userId){
-            var signeduser = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            // students.Where(s => s.LastName.Contains(searchString)
-            //                    || s.FirstMidName.Contains(searchString));
-            // var newChat = _ctx.Chats.Where(x => x.Type == ChatType.Private);
-            // newChat.Where(s => s.Users)
-            // newChat.Where(s => s.Users
-            //                         .Where( r => userId.Contains(r.UserId))
-            //                         .Where(x => signeduser.Contains(x.UserId))
-                                    
-            // ).Select(x => x.ChatId).ToList();
-                                        
+        public async Task<IActionResult> CreatePrivateRoom(string userId){                                        
             var chat = new Chat {
                 Type = ChatType.Private
             };
@@ -72,7 +62,7 @@ namespace ChatApp.Controllers
             _ctx.Chats.Add(chat);
             await _ctx.SaveChangesAsync();
 
-            return RedirectToAction("CHat", new {id = chat.Id});
+            return RedirectToAction("Chat", new {id = chat.Id});
         }
 
         public async Task<IActionResult> CreateRoom(string name){
@@ -135,5 +125,12 @@ namespace ChatApp.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        // private string ifChatexist(string userId){
+        //     string oldChat;
+        //     var newChat = _ctx.Chats.Where(x => x.Type == ChatType.Private);
+        //     var oldId =  newChat.FirstOrDefault(x => x.Users.Where(y => y.UserId.Contains(userId)));
+
+        //     return oldChat;
+        // }
     }
 }
