@@ -2,9 +2,21 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-    @foreach (var chat in Model)
+    <div class="container-fluid pt-3">
+    <div class="row">
+        @foreach (var chat in Model)
     {
-        <a class="room-button" asp-controller="Home" asp-action="JoinChat" asp-route-id="@chat.Id">
-            @chat.Name
-        </a>
+        <!-- Info Boxes Style 2 -->
+            <div class="info-box mb-3 bg-info mr-3" style="min-width:200px">
+              <span class="info-box-icon"><i class="fa fa-comment"></i></span>
+
+              <div class="info-box-content">
+                <a class="info-box-text" style="color:white" asp-controller="Home" asp-action="JoinChat" asp-route-id="@chat.Id"> @chat.Name</a>
+               
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
     }
+    </div>
+    </div>
