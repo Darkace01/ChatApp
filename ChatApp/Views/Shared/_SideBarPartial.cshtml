@@ -48,6 +48,23 @@
                   </p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a asp-area="" asp-controller="Home" asp-action="Find" class="nav-link">
+                  <i class="fa fa-search"></i>
+                  <p>
+                    Find
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a asp-area="" asp-controller="Home" asp-action="Private" class="nav-link">
+                  <i class="fa fa-th-large"></i>
+                  <p>
+                    Private
+                  </p>
+                </a>
+              </li>
+              
               @if(User.Identity.IsAuthenticated){
               <vc:room></vc:room>
               }

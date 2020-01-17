@@ -49,6 +49,17 @@ namespace ChatApp.Controllers
         }
 
         public async Task<IActionResult> CreatePrivateRoom(string userId){
+            var signeduser = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            // students.Where(s => s.LastName.Contains(searchString)
+            //                    || s.FirstMidName.Contains(searchString));
+            // var newChat = _ctx.Chats.Where(x => x.Type == ChatType.Private);
+            // newChat.Where(s => s.Users)
+            // newChat.Where(s => s.Users
+            //                         .Where( r => userId.Contains(r.UserId))
+            //                         .Where(x => signeduser.Contains(x.UserId))
+                                    
+            // ).Select(x => x.ChatId).ToList();
+                                        
             var chat = new Chat {
                 Type = ChatType.Private
             };

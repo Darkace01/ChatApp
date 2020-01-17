@@ -3,10 +3,10 @@
 @foreach(var chat in Model){
           <li class="nav-item">
             <a asp-controller="Home" asp-action="Chat" asp-route-Id="@chat.Id" class="nav-link">
-              <i class="far fa-folder-open"></i>
+              <i class="far fa-edit"></i>
               <p>
                 @chat.Name
-                <!-- <span class="right badge badge-danger">New</span> -->
+                
               </p>
             </a>
           </li>
