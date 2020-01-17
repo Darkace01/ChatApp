@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/adminlte.min.css" />
     <link rel="stylesheet" href="~/css/all.min.css" />
-    <link rel="stylesheet" href="~/css/OverlayScrollbars.min.css" <link rel="stylesheet"
+    <link rel="stylesheet" href="~/css/OverlayScrollbars.min.css"> <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
         integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc=" crossorigin="anonymous" />
     @*
@@ -69,6 +69,12 @@
             <div class="content-wrapper" class="pb-3">
                 <div class="container-fluid">
                     @RenderBody()
+                    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+    </div>
                 </div>
             </div>
         </div>
@@ -108,13 +114,7 @@
             </div>
         </div>
     </div>
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
-    </div>
-    <!-- ./wrapper -->
+    
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -136,6 +136,7 @@
     <script src="~/js/Chart.min.js"></script>
     <script src="~/js/demo.js" asp-append-version="true"></script>
     <script src="~/js/dashboard3.js" asp-append-version="true"></script>
+    <script src="~/js/jquery.mousewheel.js"></script>
     <script src="~/js/OverlayScrollbars.min.js"></script>
     <script src="~/js/jquery.overlayScrollbars.min.js"></script>
 
