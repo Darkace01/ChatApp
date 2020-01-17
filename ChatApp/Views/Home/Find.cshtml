@@ -2,7 +2,46 @@
 
     @foreach (var user in Model)
     {
-        <a asp-controller="Home" asp-action="CreatePrivateRoom" asp-route-userId="@user.Id">
-            @user.UserName
-        </a>
+    
     }
+
+
+    <div class="">
+        <!-- USERS LIST -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Latest Members</h3>
+
+                <div class="card-tools">
+                    <span class="badge badge-danger">8 New Members</span>
+                    @* <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                            class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+                    </button> *@
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+                <ul class="users-list clearfix">
+                        @foreach (var user in Model){
+                            <li>
+                        <img src="~/img/user2-160x160.jpg" alt="User Image">
+                        <a class="users-list-name" asp-controller="Home" asp-action="CreatePrivateRoom"
+                            asp-route-userId="@user.Id">@user.UserName</a>
+                        <span class="users-list-date">Today</span>
+                    </li>
+                    }
+
+                </ul>
+                <!-- /.users-list -->
+            </div>
+            <!-- /.card-body -->
+            @* <div class="card-footer text-center">
+                <a href="javascript::">View All Users</a>
+            </div> *@
+            <!-- /.card-footer -->
+        </div>
+        <!--/.card -->
+    </div>
