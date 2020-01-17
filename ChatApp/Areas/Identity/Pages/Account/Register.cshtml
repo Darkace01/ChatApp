@@ -1,7 +1,7 @@
 ﻿@page
 @model RegisterModel
 @{
-    ViewData["Title"] = "Register";
+ViewData["Title"] = "Register";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -32,6 +32,81 @@
     </div>
 </div>
 
+
+
+
+
+
+
+
+
+<div class="login-box">
+    <!-- <div class="login-logo">
+            <a href="../../index2.html"><b>Laudry</b>App</a>
+        </div> -->
+    <!-- /.login-logo -->
+    <div class="card">
+        <div class="card-body login-card-body">
+            <p class="login-box-msg login-logo">Register</p>
+            <hr>
+            <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <label asp-for="Input.Email"></label>
+                <div class="input-group mb-3">
+                    <input asp-for="Input.Email" class="form-control" placeholder="Email">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fa fa-envelope"></span>
+                        </div>
+                    </div>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+
+                <label asp-for="Input.Password"></label>
+                <div class="input-group mb-3">
+                    <input asp-for="Input.Password" class="form-control" placeholder="Password">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fa fa-lock"></span>
+                        </div>
+                    </div>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+
+                <label asp-for="Input.ConfirmPassword"></label>
+                <div class="input-group mb-3">
+                    <input asp-for="Input.ConfirmPassword" class="form-control" placeholder="Confirm Password">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fa fa-lock"></span>
+                        </div>
+                    </div>
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary btn-block">Register</button>
+                    </div>
+                </div>
+            </form>
+
+
+            <p class="mb-0">
+                <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="text-center">Already a User ? Sign
+                    In</a>
+            </p>
+        </div>
+        <!-- /.login-card-body -->
+    </div>
+</div>
+<!-- /.login-box -->
+
+
+
+
+
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+<partial name="_ValidationScriptsPartial" />
 }
