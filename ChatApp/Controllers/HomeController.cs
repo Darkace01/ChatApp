@@ -39,7 +39,7 @@ namespace ChatApp.Controllers
         }
 
         public IActionResult Private(){
-            var chats = _ctx.Chats
+                var chats = _ctx.Chats
                         .Include(x => x.Users)
                             .ThenInclude(x => x.User)
                         .Where(x => x.Type == ChatType.Private
@@ -49,19 +49,31 @@ namespace ChatApp.Controllers
             return View(chats);
         }
 
-        public async Task<IActionResult> CreatePrivateRoom(string userId){                                        
-            var chat = new Chat {
+        public async Task<IActionResult> CreatePrivateRoom(string userId){
+             string currentUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+             var ion = _ctx.ChatUsers.SingleOrDefault(x => x.User.Id == currentUserId);
+             var chats = ion.User.PrivateChats.Where(p => p.UserId == userId).FirstOrDefault();
+             if(chats != null){
+                 var chhId = chats.ChatId;
+                 return RedirectToAction("Chat", new {id = chhId});
+             }
+             var chat = new Chat {
                 Type = ChatType.Private
             };
             chat.Users.Add(new ChatUser{
                 UserId = userId
             });
             chat.Users.Add(new ChatUser {
-                UserId = User.FindFirst(ClaimTypes.NameIdentifier).Value
+                UserId = currentUserId
             });
             _ctx.Chats.Add(chat);
-            await _ctx.SaveChangesAsync();
+            var user = _ctx.ChatUsers.SingleOrDefault(x => x.User.Id == currentUserId);
 
+             user.User.PrivateChats.Add(new PrivateChat{
+                 UserId = userId,
+                 ChatId = chat.Id
+             });
+            await _ctx.SaveChangesAsync();
             return RedirectToAction("Chat", new {id = chat.Id});
         }
 
