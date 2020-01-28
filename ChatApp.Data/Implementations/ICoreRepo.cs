@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ChatApp.Data.Contracts;
 using ChatApp.Data.Implementations;
-using SavvyLegal.Data;
+using ChatApp.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
