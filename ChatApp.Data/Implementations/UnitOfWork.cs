@@ -11,14 +11,14 @@ namespace ChatApp.Data.Implementations
     {
         private readonly ApplicationDbContext _context;
 
-        public AdminRepo AdminRepo { get; private set; }
+        public ChatRepo ChatRepo { get; private set; }
         public UserRepo UserRepo { get; set; }
 
 
         public UnitOfWork(ApplicationDbContext context)
         {
             this._context = context;
-            this.AdminRepo = new AdminRepo(this._context);
+            this.ChatRepo = new ChatRepo(this._context);
             this.UserRepo = new UserRepo(this._context);
 
         }
