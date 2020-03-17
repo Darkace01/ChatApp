@@ -37,6 +37,9 @@ namespace ChatApp
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddScoped<SignInManager<User>,SignInManager<User>>();
+            services.AddScoped<UserManager<User>,UserManager<User>>();
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -52,6 +55,14 @@ namespace ChatApp
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSignalR();
+            services.AddScoped(serviceType: typeof(IUnitOfWork), implementationType: typeof(UnitOfWork<>));
+
+            //Repo
+            services.AddScoped(serviceType: typeof(ICoreRepo), implementationType: typeof(CoreRepo<>));
+            services.AddScoped(serviceType: typeof(IChatRepo), implementationType: typeof(ChatRepo<>));
+
+            //Services
+            services.AddScoped(serviceType: typeof(IChatService), implementationType: typeof(ChatService<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

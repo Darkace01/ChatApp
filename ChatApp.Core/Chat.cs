@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace ChatApp.Models
+namespace ChatApp.Core
 {
     public class Chat{
 
