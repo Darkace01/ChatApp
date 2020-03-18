@@ -19,6 +19,7 @@ using ChatApp.Data.Contracts;
 using ChatApp.Data.Implementations;
 using ChatApp.Services.Contracts;
 using SavvyLaundry.Services.Implementations;
+using ChatApp.Core;
 
 namespace ChatApp
 {

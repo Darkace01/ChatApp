@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ChatApp.Core;
+using ChatApp.Models;
 using ChatApp.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
