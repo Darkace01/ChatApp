@@ -56,7 +56,7 @@ namespace SavvyLaundry.Services.Implementations
 
         public IEnumerable<Chat> GetAllUserChat(string userId)
         {
-            return _uow.ChatRepo.GetAll().Where(p => p.userId == userId);
+            return _uow.ChatRepo.GetAll().Where(p => p.Users.Where(x => x.UserId == userId).ToList());
         }
 
         public IEnumerable<Chat> GetAllChats()
@@ -70,7 +70,7 @@ namespace SavvyLaundry.Services.Implementations
 
         public Chat GetChatByName(string chatName)
         {
-            return _uow.ProductRepo.Find(p => string.Compare(p.Name, name, true) == 0).Where(c => !c.IsDeleted).FirstOrDefault();
+            return _uow.ChatRepo.Find(p => string.Compare(p.Name, chatName, true) == 0).FirstOrDefault();
         }
         public enum ChatType{
         Room,
@@ -88,26 +88,16 @@ namespace SavvyLaundry.Services.Implementations
 
         }
 
-        private bool ValidateCreateProductDetails(Product product)
+        private bool ValidateCreateChatDetails(Chat chat)
         {
             bool result = true;
 
-            if (string.IsNullOrEmpty(product.Name) || string.IsNullOrWhiteSpace(product.Name)
-                || product.Name.Length<2 || product.Name.Length>30)
+            if (string.IsNullOrEmpty(chat.Name) || string.IsNullOrWhiteSpace(chat.Name)
+                || chat.Name.Length<2 || chat.Name.Length>30)
                 return false;
 
-            if (string.IsNullOrEmpty(product.IconUrl) || string.IsNullOrWhiteSpace(product.IconUrl))
-                return false;
-
-            Company company = _uow.CompanyRepo.Get(product.CompanyId);
-            if (company == null)
-                return false;
-
-            if (!char.IsLetterOrDigit(product.Name[0]))
-                return false;
-
-
-            if (product.Pieces < 1)
+            Chat chats = _uow.ChatRepo.Get(chat.Id);
+            if (chats == null)
                 return false;
             
 
