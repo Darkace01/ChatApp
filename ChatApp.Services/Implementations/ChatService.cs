@@ -22,10 +22,7 @@ namespace SavvyLaundry.Services.Implementations
         public async Task CreateChat(Chat chat)
         {
             if (chat == null)
-                // throw new ProductNotFoundException("chat cannot be null!");
-
-            // if (!ValidateChatDetails(product))
-            //     throw new InvalidProductDataException();
+                // implement this later
 
             _uow.ChatRepo.Add(chat);
             await _uow.Save();
@@ -33,11 +30,7 @@ namespace SavvyLaundry.Services.Implementations
 
         public async Task UpdateChat(Chat chat)
         {
-            // if (chat == null)
-            //     throw new ProductNotFoundException("product cannot be null!");
-
-            // if (!ValidateCreateProductDetails(product))
-            //     throw new InvalidProductDataException();
+            // implement this later
 
             _uow.ChatRepo.Update(chat);
             await _uow.Save();
@@ -45,8 +38,7 @@ namespace SavvyLaundry.Services.Implementations
 
         public async Task DeleteChat(Chat chat)
         {
-            // if (product == null)
-            //     throw new ProductNotFoundException("product cannot be null!");
+            // implement this later
 
             
             _uow.ChatRepo.Update(chat);
@@ -56,7 +48,8 @@ namespace SavvyLaundry.Services.Implementations
 
         public IEnumerable<Chat> GetAllUserChat(string userId)
         {
-            return _uow.ChatRepo.GetAll().Where(p => p.Users.Where(x => x.UserId == userId).ToList());
+            return _uow.ChatRepo.GetAll().Where(p => p.Users.Any(y => y.UserId == userId));
+            
         }
 
         public IEnumerable<Chat> GetAllChats()
@@ -79,12 +72,9 @@ namespace SavvyLaundry.Services.Implementations
 
         public string CheckIfChatAlreadyExistForUser(string userId, string chatUserId)
         {
-            var existingChat = _uow.ChatRepo.Find().Where(c => c.ChatType == ChatType.Private);
-            var user = existingChat.Find().Where(e => e.User.Id == userId);
-            if (existedProduct == null)
-                return false;
+            //implement this later
 
-            return true ;
+            return "" ;
 
         }
 

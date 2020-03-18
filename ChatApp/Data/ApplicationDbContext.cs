@@ -5,7 +5,7 @@ using ChatApp.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace ChatApp.Data
+namespace ChatApp.Data.Data
 {
     public class ApplicationDbContext : IdentityDbContext<User>
     {

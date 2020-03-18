@@ -15,6 +15,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ChatApp.Models;
 using ChatApp.Hubs;
+using ChatApp.Data.Contracts;
+using ChatApp.Data.Implementations;
+using ChatApp.Services.Contracts;
+using SavvyLaundry.Services.Implementations;
 
 namespace ChatApp
 {
@@ -55,14 +59,14 @@ namespace ChatApp
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSignalR();
-            services.AddScoped(serviceType: typeof(IUnitOfWork), implementationType: typeof(UnitOfWork<>));
+            services.AddScoped(serviceType: typeof(IUnitOfWork), implementationType: typeof(UnitOfWork));
 
             //Repo
-            services.AddScoped(serviceType: typeof(ICoreRepo), implementationType: typeof(CoreRepo<>));
-            services.AddScoped(serviceType: typeof(IChatRepo), implementationType: typeof(ChatRepo<>));
+            services.AddScoped(serviceType: typeof(ICoreRepo<>), implementationType: typeof(CoreRepo<>));
+            services.AddScoped(serviceType: typeof(IChatRepo), implementationType: typeof(ChatRepo));
 
             //Services
-            services.AddScoped(serviceType: typeof(IChatService), implementationType: typeof(ChatService<>));
+            services.AddScoped(serviceType: typeof(IChatService), implementationType: typeof(ChatService));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
