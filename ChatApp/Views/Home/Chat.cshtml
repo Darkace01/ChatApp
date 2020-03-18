@@ -106,7 +106,6 @@ var userName = User.Identity.Name;
     var logUser = document.getElementById("usernow").value;
     connection.on("RecieveMessage", function(data){
         var message = document.createElement("div")
-        console.log(message)
                 message.classList.add('direct-chat-msg')
                 
         var subMessage = document.createElement('div')
@@ -158,7 +157,7 @@ var userName = User.Identity.Name;
             .then(res => {
                 console.log("Room Joined!")
             }).catch(err => {
-                console.err("Failed to Join Room! ")
+                console.err("Failed to Join Room! ",res)
             })
     }
 

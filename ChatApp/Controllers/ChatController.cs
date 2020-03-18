@@ -36,7 +36,7 @@ namespace ChatApp.Controllers{
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> SendMessage(string message,int roomId, [FromServices] ApplicationDbContext ctx){
+        public async Task<IActionResult> SendMessage(string message,int roomId){
 
             var messages = new Message{
                 ChatId = roomId,
