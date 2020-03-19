@@ -22,6 +22,7 @@ namespace ChatApp.Data.Implementations
         public IEnumerable<Chat> GetAllChatWithRelationships(){
             return _DbSet
                 .Include( c => c.Users)
+                .ThenInclude(c => c.User)
                 .Include( c => c.Messages);
         
         }
@@ -30,6 +31,7 @@ namespace ChatApp.Data.Implementations
         {
             return _DbSet.Where(c => c.Id == id)
                 .Include(c => c.Users)
+                .ThenInclude(c => c.User)
                 .Include(c=>c.Messages)
                 .FirstOrDefault();
         }

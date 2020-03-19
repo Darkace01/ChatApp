@@ -54,7 +54,7 @@ namespace ChatApp.Services.Implementations
         }
 
         public IEnumerable<Chat> GetAllUsersPrivateChat(string userId){
-            return _uow.ChatRepo.GetAllChatWithRelationships().Where(x => x.Users.Any(y => y.UserId == userId && y.Chat.Type.CompareTo(ChatType.Private) == 1 )).ToList();
+            return _uow.ChatRepo.GetAllChatWithRelationships().Where(x => x.Users.Any(y => y.UserId == userId && y.Chat.Type.ToString().ToLower() == "private")).ToList();
         }
         
 
