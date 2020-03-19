@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace ChatApp.Services.Implementations
@@ -50,6 +51,10 @@ namespace ChatApp.Services.Implementations
         {
             return _uow.ChatRepo.GetAll().Where(p => p.Users.Any(y => y.UserId == userId));
             
+        }
+
+        public IEnumerable<Chat> GetAllUsersPrivateChat(string userId){
+            return _uow.ChatRepo.GetAllChatWithRelationships().Where(x => x.Users.Any(y => y.UserId == userId && y.Chat.Type.CompareTo(ChatType.Private) == 1 )).ToList();
         }
         
 

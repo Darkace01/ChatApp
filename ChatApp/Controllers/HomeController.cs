@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using ChatApp.Core;
 using ChatApp.Models;
 using ChatApp.Data;
+using ChatApp.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
@@ -17,9 +18,13 @@ namespace ChatApp.Controllers
     public class HomeController : Controller
     {
         private ApplicationDbContext _ctx;
-        public HomeController(ApplicationDbContext ctx)
+        private readonly IMessageService _messageService;
+        private readonly IChatService _chatService;
+        public HomeController(ApplicationDbContext ctx, IMessageService messageService, IChatService chatService)
         {
             _ctx = ctx;
+            _messageService = messageService;
+            _chatService = chatService;
         }
         public IActionResult Index()
         {
@@ -40,13 +45,8 @@ namespace ChatApp.Controllers
         }
 
         public IActionResult Private(){
-                var chats = _ctx.Chats
-                        .Include(x => x.Users)
-                            .ThenInclude(x => x.User)
-                        .Where(x => x.Type == ChatType.Private
-                        && x.Users
-                            .Any(y => y.UserId == User.FindFirst(ClaimTypes.NameIdentifier).Value))
-                        .ToList();
+            string userId = GetUser();
+                var chats = _chatService.GetAllUsersPrivateChat(userId);
             return View(chats);
         }
 
@@ -137,6 +137,10 @@ namespace ChatApp.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        private string GetUser(){
+            return User.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
         // private string ifChatexist(string userId){
         //     string oldChat;
