@@ -9,7 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace SavvyLaundry.Services.Implementations
+namespace ChatApp.Services.Implementations
 {
     public class ChatService : IChatService
     {
@@ -51,6 +51,7 @@ namespace SavvyLaundry.Services.Implementations
             return _uow.ChatRepo.GetAll().Where(p => p.Users.Any(y => y.UserId == userId));
             
         }
+        
 
         public IEnumerable<Chat> GetAllChats()
         {

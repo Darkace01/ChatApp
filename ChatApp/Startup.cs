@@ -18,7 +18,7 @@ using ChatApp.Hubs;
 using ChatApp.Data.Contracts;
 using ChatApp.Data.Implementations;
 using ChatApp.Services.Contracts;
-using SavvyLaundry.Services.Implementations;
+using ChatApp.Services.Implementations;
 using ChatApp.Core;
 
 namespace ChatApp
@@ -68,6 +68,7 @@ namespace ChatApp
 
             //Services
             services.AddScoped(serviceType: typeof(IChatService), implementationType: typeof(ChatService));
+            services.AddScoped(serviceType: typeof(IMessageService), implementationType: typeof(MessageService));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
