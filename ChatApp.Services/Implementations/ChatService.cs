@@ -71,10 +71,6 @@ namespace ChatApp.Services.Implementations
         {
             return _uow.ChatRepo.Find(p => string.Compare(p.Name, chatName, true) == 0).FirstOrDefault();
         }
-        public enum ChatType{
-        Room,
-        Private
-        }
 
         public string CheckIfChatAlreadyExistForUser(string userId, string chatUserId)
         {

@@ -13,6 +13,7 @@ namespace ChatApp.Data.Implementations
 
         public ChatRepo ChatRepo { get; private set; }
         public MessageRepo MessageRepo { get; private set; }
+        public UserRepo UserRepo {get; private set;}
 
 
         public UnitOfWork(ApplicationDbContext context)
@@ -20,6 +21,7 @@ namespace ChatApp.Data.Implementations
             this._context = context;
             this.ChatRepo = new ChatRepo(this._context);
             this.MessageRepo = new MessageRepo(this._context);
+            this.UserRepo = new UserRepo(this._context);
 
         }
 
