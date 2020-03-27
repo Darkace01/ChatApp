@@ -23,9 +23,9 @@ namespace ChatApp.Services.Implementations
             return _uow.UserRepo.GetAll();
         }
 
-        // public IEnumerable<User> GetAllPossibleFriends(string userId)
-        // {
-        //     return  _uow.UserRepo.GetAllUsersWithRelationShips().Where(u => u.Any(u => u.Id != userId));
-        // }
+        public IEnumerable<User> GetAllPossibleFriends(string userId)
+        {
+            return  _uow.UserRepo.GetAllUsersWithRelationShips().Where(u => u.Id != userId);
+        }
     }
 }

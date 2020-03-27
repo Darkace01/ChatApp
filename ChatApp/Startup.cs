@@ -65,10 +65,10 @@ namespace ChatApp
             //Repo
             services.AddScoped(serviceType: typeof(ICoreRepo<>), implementationType: typeof(CoreRepo<>));
             services.AddScoped(serviceType: typeof(IChatRepo), implementationType: typeof(ChatRepo));
-
             //Services
             services.AddScoped(serviceType: typeof(IChatService), implementationType: typeof(ChatService));
             services.AddScoped(serviceType: typeof(IMessageService), implementationType: typeof(MessageService));
+            services.AddScoped(serviceType: typeof(IUserService), implementationType: typeof(UserService));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

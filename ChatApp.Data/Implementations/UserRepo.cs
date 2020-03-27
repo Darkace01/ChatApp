@@ -17,8 +17,8 @@ namespace ChatApp.Data.Implementations
         }
 
         public IEnumerable<User> GetAllUsersWithRelationShips(){
-            return _DbSet
-                .Include(c => c.Id);
+            return _DbSet;
+                
         }
     }
 }

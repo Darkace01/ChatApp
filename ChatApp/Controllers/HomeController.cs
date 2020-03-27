@@ -20,11 +20,13 @@ namespace ChatApp.Controllers
         private ApplicationDbContext _ctx;
         private readonly IMessageService _messageService;
         private readonly IChatService _chatService;
-        public HomeController(ApplicationDbContext ctx, IMessageService messageService, IChatService chatService)
+        private readonly IUserService _userService;
+        public HomeController(ApplicationDbContext ctx, IMessageService messageService, IChatService chatService, IUserService userService)
         {
             _ctx = ctx;
             _messageService = messageService;
             _chatService = chatService;
+            _userService = userService;
         }
         public IActionResult Index()
         {
@@ -38,9 +40,11 @@ namespace ChatApp.Controllers
         }
 
         public IActionResult Find(){
-            var users = _ctx.Users
-                        .Where(x => x.Id != User.FindFirst(ClaimTypes.NameIdentifier).Value)
-                        .ToList();
+            // var users = _ctx.Users
+            //             .Where(x => x.Id != User.FindFirst(ClaimTypes.NameIdentifier).Value)
+            //             .ToList();
+            string userId = GetUser();
+            var users = _userService.GetAllPossibleFriends(userId);
             return View(users);
         }
 
@@ -52,12 +56,14 @@ namespace ChatApp.Controllers
 
         public async Task<IActionResult> CreatePrivateRoom(string userId){
              string currentUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-             var ion = _ctx.ChatUsers.SingleOrDefault(x => x.User.Id == currentUserId);
-             var chats = ion.User.PrivateChats.Where(p => p.UserId == userId).FirstOrDefault();
-             if(chats != null){
-                 var chhId = chats.ChatId;
-                 return RedirectToAction("Chat", new {id = chhId});
-             }
+            //  var ion = _ctx.ChatUsers.Where(x => x.User.Id == currentUserId).ToList();
+            //  var chats = ion.Find(x => x.User.PrivateChats.Any(y => x.UserId == userId));
+         
+            //  if(chats != null){
+            //      chats = "";
+            //      var chhId = chats.ChatId;
+            //      return RedirectToAction("Chat", new {id = chhId});
+            //  }
              var chat = new Chat {
                 Type = ChatType.Private
             };

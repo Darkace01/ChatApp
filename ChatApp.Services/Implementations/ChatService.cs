@@ -74,7 +74,7 @@ namespace ChatApp.Services.Implementations
 
         public string CheckIfChatAlreadyExistForUser(string userId, string chatUserId)
         {
-            //implement this later
+            var chat = _uow.UserRepo.GetAll().Where(x => x.Id == userId);
 
             return "" ;
 
