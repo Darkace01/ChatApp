@@ -10,5 +10,6 @@ namespace ChatApp.Services.Contracts
     {
         IEnumerable<User> GetAllUsers();
         IEnumerable<User> GetAllPossibleFriends(string userId);
+        User GetUserById(string userId);
     }
 }

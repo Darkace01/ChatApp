@@ -23,6 +23,10 @@ namespace ChatApp.Services.Implementations
             return _uow.UserRepo.GetAll();
         }
 
+        public User GetUserById(string userId){
+            return _uow.UserRepo.Get(userId);
+        }
+
         public IEnumerable<User> GetAllPossibleFriends(string userId)
         {
             return  _uow.UserRepo.GetAllUsersWithRelationShips().Where(u => u.Id != userId);

@@ -72,11 +72,14 @@ namespace ChatApp.Services.Implementations
             return _uow.ChatRepo.Find(p => string.Compare(p.Name, chatName, true) == 0).FirstOrDefault();
         }
 
-        public string CheckIfChatAlreadyExistForUser(string userId, string chatUserId)
+        public bool CheckIfChatAlreadyExistForUser(string userId, int chatId)
         {
-            var chat = _uow.UserRepo.GetAll().Where(x => x.Id == userId);
+            var chat = GetAllUsersPrivateChat(userId).Where(x => x.Users.Any(y => y.ChatId == chatId));
 
-            return "" ;
+            if(chat != null){
+                return true
+            }
+            return false ;
 
         }
 

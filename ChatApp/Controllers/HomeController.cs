@@ -56,32 +56,8 @@ namespace ChatApp.Controllers
 
         public async Task<IActionResult> CreatePrivateRoom(string userId){
              string currentUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            //  var ion = _ctx.ChatUsers.Where(x => x.User.Id == currentUserId).ToList();
-            //  var chats = ion.Find(x => x.User.PrivateChats.Any(y => x.UserId == userId));
-         
-            //  if(chats != null){
-            //      chats = "";
-            //      var chhId = chats.ChatId;
-            //      return RedirectToAction("Chat", new {id = chhId});
-            //  }
-             var chat = new Chat {
-                Type = ChatType.Private
-            };
-            chat.Users.Add(new ChatUser{
-                UserId = userId
-            });
-            chat.Users.Add(new ChatUser {
-                UserId = currentUserId
-            });
-            _ctx.Chats.Add(chat);
-            var user = _ctx.ChatUsers.Where(x => x.User.Id == currentUserId).FirstOrDefault();
-
-             user.User.PrivateChats.Add(new PrivateChat{
-                 UserId = userId,
-                 ChatId = chat.Id
-             });
-            await _ctx.SaveChangesAsync();
-            return RedirectToAction("Chat", new {id = chat.Id});
+            
+            return RedirectToAction("Chat", new {id = 3});
         }
 
         public async Task<IActionResult> CreateRoom(string name){
