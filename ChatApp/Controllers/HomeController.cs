@@ -74,7 +74,7 @@ namespace ChatApp.Controllers
                 UserId = currentUserId
             });
             _ctx.Chats.Add(chat);
-            var user = _ctx.ChatUsers.SingleOrDefault(x => x.User.Id == currentUserId);
+            var user = _ctx.ChatUsers.Where(x => x.User.Id == currentUserId).FirstOrDefault();
 
              user.User.PrivateChats.Add(new PrivateChat{
                  UserId = userId,
