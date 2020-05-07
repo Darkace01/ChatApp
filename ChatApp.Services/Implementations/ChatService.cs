@@ -77,7 +77,7 @@ namespace ChatApp.Services.Implementations
             var chat = GetAllUsersPrivateChat(userId).Where(x => x.Users.Any(y => y.ChatId == chatId));
 
             if(chat != null){
-                return true
+                return true;
             }
             return false ;
 
