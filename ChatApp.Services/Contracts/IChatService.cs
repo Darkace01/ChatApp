@@ -13,9 +13,10 @@ namespace ChatApp.Services.Contracts
         Chat GetChatById(int chatId);
         Chat GetChatByName(string chatName);
         Task CreateChat(Chat chat);
-        string CheckIfChatAlreadyExistForUser(string userId, string chatUserId);
+        bool CheckIfChatAlreadyExistForUser(string userId, int chatId);
         IEnumerable<Chat> GetAllUsersPrivateChat(string userId);
         Task UpdateChat(Chat chat);
         Task DeleteChat(Chat chat);
+        int GetUserPreviousChat(string userId, string preUserId);
     }
 }

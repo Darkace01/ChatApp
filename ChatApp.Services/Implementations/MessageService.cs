@@ -19,10 +19,10 @@ namespace ChatApp.Services.Implementations
         }
         public async Task CreateMessage(Message message)
         {
-            if (message == null)
+            //if (message == null)
                 // implement this later
 
-                _uow.MessageRepo.Add(message);
+            _uow.MessageRepo.Add(message);
             await _uow.Save();
         }
 

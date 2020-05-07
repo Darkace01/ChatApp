@@ -49,15 +49,40 @@ namespace ChatApp.Controllers
         }
 
         public IActionResult Private(){
+            
             string userId = GetUser();
                 var chats = _chatService.GetAllUsersPrivateChat(userId);
             return View(chats);
         }
 
+        public async Task<IActionResult> CreatePrivate(string Id)
+        {
+            var chat = new Chat
+            {
+                Type = ChatType.Private
+            };
+            chat.Users.Add(new ChatUser
+            {
+                UserId = Id
+            });
+            chat.Users.Add(new ChatUser
+            {
+                UserId = User.FindFirst(ClaimTypes.NameIdentifier).Value
+            });
+            _ctx.Chats.Add(chat);
+            await _ctx.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Chat), new { id = chat.Id });
+        }
+
         public async Task<IActionResult> CreatePrivateRoom(string userId){
              string currentUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            
-            return RedirectToAction("Chat", new {id = 3});
+            int chatId = _chatService.GetUserPreviousChat(currentUserId, userId);
+            if(chatId != 00)
+            {
+                return RedirectToAction(nameof(Chat), new { id = chatId });
+            }
+            return RedirectToAction(nameof(CreatePrivate), new { Id = userId });
         }
 
         public async Task<IActionResult> CreateRoom(string name){
@@ -76,9 +101,10 @@ namespace ChatApp.Controllers
 
         [HttpGet("{Id}")]
         public IActionResult Chat(int Id){
-            var chat = _ctx.Chats
-            .Include(x => x.Messages)
-            .FirstOrDefault(x => x.Id == Id);
+            //var chat = _ctx.Chats
+            //.Include(x => x.Messages)
+            //.FirstOrDefault(x => x.Id == Id);
+           var chat = _chatService.GetChatById(Id);
             return View(chat);
         }
 

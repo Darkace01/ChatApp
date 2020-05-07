@@ -64,7 +64,7 @@ namespace ChatApp.Services.Implementations
         }
         public Chat GetChatById(int chatId)
         {
-            return _uow.ChatRepo.Find(p => p.Id == chatId).FirstOrDefault();
+            return _uow.ChatRepo.GetAllChatWithRelationships().Where(x => x.Id == chatId).FirstOrDefault();
         }
 
         public Chat GetChatByName(string chatName)
@@ -79,8 +79,21 @@ namespace ChatApp.Services.Implementations
             if(chat != null){
                 return true;
             }
-            return false ;
+            return false;
 
+        }
+
+        public int GetUserPreviousChat(string userId, string preUserId)
+        {
+            var chat = GetAllUsersPrivateChat(userId).Where(x => x.Users.Any(y => y.User.Id == preUserId)).FirstOrDefault();
+            if(chat != null)
+            {
+                return chat.Id;
+            }
+            else
+            {
+                return 00;
+            }
         }
 
         private bool ValidateCreateChatDetails(Chat chat)
