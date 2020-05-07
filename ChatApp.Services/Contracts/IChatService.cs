@@ -21,5 +21,6 @@ namespace ChatApp.Services.Contracts
         IEnumerable<Chat> GetAllUsersPublicChat(string userId);
         Task CreateGroup(Chat chat,string userId);
         Task SendMessage(Message message);
+        Task JoinChat(ChatUser chat);
     }
 }

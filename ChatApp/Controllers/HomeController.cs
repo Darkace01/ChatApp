@@ -136,12 +136,5 @@ namespace ChatApp.Controllers
         private string GetUser(){
             return User.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
-        // private string ifChatexist(string userId){
-        //     string oldChat;
-        //     var newChat = _ctx.Chats.Where(x => x.Type == ChatType.Private);
-        //     var oldId =  newChat.FirstOrDefault(x => x.Users.Where(y => y.UserId.Contains(userId)));
-
-        //     return oldChat;
-        // }
     }
 }
