@@ -30,19 +30,12 @@ namespace ChatApp.Controllers
         }
         public IActionResult Index()
         {
-            var chats = _ctx.Chats
-            .Where(x => x.Type != ChatType.Private)
-            .Include(x => x.Users)
-            .Where(x => !x.Users
-            .Any(y => y.UserId == User.FindFirst(ClaimTypes.NameIdentifier).Value))
-            .ToList();
+            string userId = GetUser();
+            var chats = _chatService.GetAllUsersPublicChat(userId);
             return View(chats);
         }
 
         public IActionResult Find(){
-            // var users = _ctx.Users
-            //             .Where(x => x.Id != User.FindFirst(ClaimTypes.NameIdentifier).Value)
-            //             .ToList();
             string userId = GetUser();
             var users = _userService.GetAllPossibleFriends(userId);
             return View(users);
@@ -55,6 +48,7 @@ namespace ChatApp.Controllers
             return View(chats);
         }
 
+        [HttpPost]
         public async Task<IActionResult> CreatePrivate(string Id)
         {
             var chat = new Chat
@@ -67,7 +61,7 @@ namespace ChatApp.Controllers
             });
             chat.Users.Add(new ChatUser
             {
-                UserId = User.FindFirst(ClaimTypes.NameIdentifier).Value
+                UserId = GetUser()
             });
             _ctx.Chats.Add(chat);
             await _ctx.SaveChangesAsync();
@@ -85,25 +79,19 @@ namespace ChatApp.Controllers
             return RedirectToAction(nameof(CreatePrivate), new { Id = userId });
         }
 
+        [HttpPost]
         public async Task<IActionResult> CreateRoom(string name){
+            string userId = GetUser();
             var chat =new Chat{
                 Name = name,
                 Type = ChatType.Room,
             };
-            chat.Users.Add(new ChatUser{
-                UserId = User.FindFirst(ClaimTypes.NameIdentifier).Value,
-                Role = UserRole.Admin
-            });
-            _ctx.Chats.Add(chat);
-            await _ctx.SaveChangesAsync();
+            await _chatService.CreateGroup(chat, userId);
             return RedirectToAction(nameof(Index));
         }
 
         [HttpGet("{Id}")]
         public IActionResult Chat(int Id){
-            //var chat = _ctx.Chats
-            //.Include(x => x.Messages)
-            //.FirstOrDefault(x => x.Id == Id);
            var chat = _chatService.GetChatById(Id);
             return View(chat);
         }
@@ -118,9 +106,7 @@ namespace ChatApp.Controllers
                 Name= User.Identity.Name,
                 Time = DateTime.Now
             };
-            _ctx.Messages.Add(messages);
-            await _ctx.SaveChangesAsync();
-
+            await _chatService.SendMessage(messages);
             return RedirectToAction("Chat", new{Id = roomId});
         }
 

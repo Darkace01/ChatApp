@@ -18,5 +18,8 @@ namespace ChatApp.Services.Contracts
         Task UpdateChat(Chat chat);
         Task DeleteChat(Chat chat);
         int GetUserPreviousChat(string userId, string preUserId);
+        IEnumerable<Chat> GetAllUsersPublicChat(string userId);
+        Task CreateGroup(Chat chat,string userId);
+        Task SendMessage(Message message);
     }
 }

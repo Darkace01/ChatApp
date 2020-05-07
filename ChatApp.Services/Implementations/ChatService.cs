@@ -29,11 +29,30 @@ namespace ChatApp.Services.Implementations
             await _uow.Save();
         }
 
+        public async Task CreateGroup(Chat chat,string userId){
+            chat.Users.Add(new ChatUser{
+                UserId = userId,
+                Role = UserRole.Admin
+            });
+
+            _uow.ChatRepo.Add(chat);
+            await _uow.Save();
+        }
+
+        public async Task SendMessage(Message message){
+            _uow.MessageRepo.Add(message);
+            await _uow.Save();
+        }
         public async Task UpdateChat(Chat chat)
         {
             // implement this later
 
             _uow.ChatRepo.Update(chat);
+            await _uow.Save();
+        }
+
+        public async Task JoinChat(ChatUser chat){
+            _uow.ChatUserRepo.Add(chat);
             await _uow.Save();
         }
 
@@ -56,6 +75,10 @@ namespace ChatApp.Services.Implementations
         public IEnumerable<Chat> GetAllUsersPrivateChat(string userId){
             return _uow.ChatRepo.GetAllChatWithRelationships().Where(x => x.Users.Any(y => y.UserId == userId && y.Chat.Type.ToString().ToLower() == "private")).ToList();
         }
+
+        public IEnumerable<Chat> GetAllUsersPublicChat(string userId){
+            return _uow.ChatRepo.GetAllChatWithRelationships().Where(x => !x.Users.Any(y => y.UserId == userId && y.Chat.Type.ToString().ToLower() == "publlic")).ToList();
+        }
         
 
         public IEnumerable<Chat> GetAllChats()
@@ -69,7 +92,7 @@ namespace ChatApp.Services.Implementations
 
         public Chat GetChatByName(string chatName)
         {
-            return _uow.ChatRepo.Find(p => string.Compare(p.Name, chatName, true) == 0).FirstOrDefault();
+            return _uow.ChatRepo.GetAllChatWithRelationships().Where(p => string.Compare(p.Name,chatName,true) == 0).FirstOrDefault();
         }
 
         public bool CheckIfChatAlreadyExistForUser(string userId, int chatId)

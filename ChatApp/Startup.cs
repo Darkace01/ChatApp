@@ -65,6 +65,7 @@ namespace ChatApp
             //Repo
             services.AddScoped(serviceType: typeof(ICoreRepo<>), implementationType: typeof(CoreRepo<>));
             services.AddScoped(serviceType: typeof(IChatRepo), implementationType: typeof(ChatRepo));
+            services.AddScoped(serviceType: typeof(IChatUserRepo), implementationType: typeof(ChatUserRepo));
             //Services
             services.AddScoped(serviceType: typeof(IChatService), implementationType: typeof(ChatService));
             services.AddScoped(serviceType: typeof(IMessageService), implementationType: typeof(MessageService));
