@@ -14,47 +14,55 @@ var userName = User.Identity.Name;
                         <div class="direct-chat-messages p-0 pt-1">
                             <!-- DIRECT CHAT SUCCESS -->
                             <div class="card card-sucress cardutline direct-chat direct-chat-success p-2">
-                                @foreach(var message in Model.Messages){
-                                string direction, timePosition, userPosition, hello;
-                                hello = "img/user2-160x160.jpg";
-                                if (userName == message.Name)
+                                @if (Model != null)
                                 {
-                                direction = "right";
-                                timePosition = "float-left";
-                                userPosition = "float-right";
-                                }
-                                else
-                                {
-                                direction = "";
-                                timePosition = "float-right";
-                                userPosition = "float-left";
-                                }
+                                    @foreach (var message in Model.Messages)
+                                    {
+                                        string direction, timePosition, userPosition, hello;
+                                        hello = "img/user2-160x160.jpg";
+                                        if (userName == message.Name)
+                                        {
+                                            direction = "right";
+                                            timePosition = "float-left";
+                                            userPosition = "float-right";
+                                        }
+                                        else
+                                        {
+                                            direction = "";
+                                            timePosition = "float-right";
+                                            userPosition = "float-left";
+                                        }
 
-                                foreach(var user in Model.Users){
-                                if(user.User.ImgUrl == null){
-                                hello = "~/img/user2-160x160.jpg";
-                                }else{
-                                hello = "~/img/user2-160x160.jpg";
-                                }
-                                }
+                                        foreach (var user in Model.Users)
+                                        {
+                                            if (user.User.ImgUrl == null)
+                                            {
+                                                hello = "~/img/user2-160x160.jpg";
+                                            }
+                                            else
+                                            {
+                                                hello = "~/img/user2-160x160.jpg";
+                                            }
+                                        }
 
-                                <!-- Message. Default to the left -->
-                                <div class="direct-chat-msg @direction">
-                                    <div class="direct-chat-infos clearfix">
-                                        <span class="direct-chat-name @userPosition">@message.Name</span>
-                                        <span class="direct-chat-timestamp @timePosition">@message.Time</span>
-                                    </div>
-                                    <img class="direct-chat-img" src="@hello" alt="@message.Name">
-                                    <div class="direct-chat-text">
-                                        @message.Text
-                                    </div>
-                                </div>
-                                <!-- /.direct-chat-msg -->
+                                        <!-- Message. Default to the left -->
+                                        <div class="direct-chat-msg @direction">
+                                            <div class="direct-chat-infos clearfix">
+                                                <span class="direct-chat-name @userPosition">@message.Name</span>
+                                                <span class="direct-chat-timestamp @timePosition">@message.Time</span>
+                                            </div>
+                                            <img class="direct-chat-img" src="@hello" alt="@message.Name">
+                                            <div class="direct-chat-text">
+                                                @message.Text
+                                            </div>
+                                        </div>
+                                        <!-- /.direct-chat-msg -->
 
 
 
-                                <!-- /.card-body -->
+                                        <!-- /.card-body -->
 
+                                    }
                                 }
 
                             </div>

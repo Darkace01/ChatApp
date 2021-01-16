@@ -35,20 +35,20 @@ namespace ChatApp.Controllers
             return View(chats);
         }
 
-        public IActionResult Find(){
+        public IActionResult Find()
+        {
             string userId = GetUser();
             var users = _userService.GetAllPossibleFriends(userId);
             return View(users);
         }
 
-        public IActionResult Private(){
-            
+        public IActionResult Private()
+        {
+
             string userId = GetUser();
-                var chats = _chatService.GetAllUsersPrivateChat(userId);
+            var chats = _chatService.GetAllUsersPrivateChat(userId);
             return View(chats);
         }
-
-        [HttpPost]
         public async Task<IActionResult> CreatePrivate(string Id)
         {
             var chat = new Chat
@@ -69,10 +69,11 @@ namespace ChatApp.Controllers
             return RedirectToAction(nameof(Chat), new { id = chat.Id });
         }
 
-        public async Task<IActionResult> CreatePrivateRoom(string userId){
-             string currentUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        public async Task<IActionResult> CreatePrivateRoom(string userId)
+        {
+            string currentUserId = GetUser();
             int chatId = _chatService.GetUserPreviousChat(currentUserId, userId);
-            if(chatId != 00)
+            if (chatId != 00)
             {
                 return RedirectToAction(nameof(Chat), new { id = chatId });
             }
@@ -80,9 +81,11 @@ namespace ChatApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateRoom(string name){
+        public async Task<IActionResult> CreateRoom(string name)
+        {
             string userId = GetUser();
-            var chat =new Chat{
+            var chat = new Chat
+            {
                 Name = name,
                 Type = ChatType.Room,
             };
@@ -91,35 +94,50 @@ namespace ChatApp.Controllers
         }
 
         [HttpGet("{Id}")]
-        public IActionResult Chat(int Id){
-           var chat = _chatService.GetChatById(Id);
+        public IActionResult Chat(int Id)
+        {
+            var chat = _chatService.GetChatById(Id);
             return View(chat);
         }
 
-        
+
 
         [HttpPost]
-        public async Task<IActionResult> CreateMessage(int roomId,string message){
-            var messages = new Message{
+        public async Task<IActionResult> CreateMessage(int roomId, string message)
+        {
+            var messages = new Message
+            {
                 ChatId = roomId,
                 Text = message,
-                Name= User.Identity.Name,
+                Name = User.Identity.Name,
                 Time = DateTime.Now
             };
             await _chatService.SendMessage(messages);
-            return RedirectToAction("Chat", new{Id = roomId});
+            return RedirectToAction("Chat", new { Id = roomId });
         }
 
         [HttpGet]
-        public async Task<IActionResult> JoinChat(int Id){
-            var chatUser = new ChatUser{
-                ChatId = Id,
-                UserId = User.FindFirst(ClaimTypes.NameIdentifier).Value,
-                Role = UserRole.Member
-            };
-            _ctx.ChatUsers.Add(chatUser);
-            await _ctx.SaveChangesAsync();
-            return RedirectToAction("Chat" , "Home",new{id = Id});
+        public async Task<IActionResult> JoinChat(int Id)
+        {
+            string userId = GetUser();
+
+            var previous = _chatService.CheckIfChatAlreadyExistForUser(userId, Id);
+            if (previous)
+            {
+                return RedirectToAction("Chat", "Home", new { id = Id });
+            }
+            else
+            {
+                var chatUser = new ChatUser
+                {
+                    ChatId = Id,
+                    UserId = userId,
+                    Role = UserRole.Member
+                };
+                _ctx.ChatUsers.Add(chatUser);
+                await _ctx.SaveChangesAsync();
+                return RedirectToAction("Chat", "Home", new { id = Id });
+            }
         }
 
         public IActionResult Privacy()
@@ -133,7 +151,8 @@ namespace ChatApp.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        private string GetUser(){
+        private string GetUser()
+        {
             return User.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
     }
