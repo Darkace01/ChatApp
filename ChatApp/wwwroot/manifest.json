@@ -1,0 +1,27 @@
+{    
+    "name": "ChatApp",    
+    "short_name": "Chat",    
+    "description": "A Simple .Net Core App For Chatting",    
+    "icons": [    
+      {  
+          "src": "/img/logo144.png",  
+          "sizes": "144x144",  
+          "type": "image/png"  
+      },  
+      {    
+          "src": "/img/logo192.png",    
+          "type": "image/png",    
+          "sizes": "192x192"    
+      },
+      {    
+          "src": "/img/logo512.png",    
+          "type": "image/png",    
+          "sizes": "512x512",  
+          "purpose": "any maskable"  
+      }   
+    ],    
+    "display": "minimal-ui", 
+    "background_color": "#ffffff",
+    "theme_color": "#28a745",   
+    "start_url": "/"    
+  }     

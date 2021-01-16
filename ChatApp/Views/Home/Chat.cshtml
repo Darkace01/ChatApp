@@ -37,11 +37,11 @@ var userName = User.Identity.Name;
                                         {
                                             if (user.User.ImgUrl == null)
                                             {
-                                                hello = "~/img/user2-160x160.jpg";
+                                                hello = "img/user2-160x160.jpg";
                                             }
                                             else
                                             {
-                                                hello = "~/img/user2-160x160.jpg";
+                                                hello = "img/user2-160x160.jpg";
                                             }
                                         }
 
@@ -163,9 +163,9 @@ var userName = User.Identity.Name;
         var url = '/Chat/JoinRoom/' + _connectionId + '/@Model.Id'
         axios.post(url, null)
             .then(res => {
-                console.log("Room Joined!")
+                @* Do something here console.log("Room Joined!") *@
             }).catch(err => {
-                console.err("Failed to Join Room! ",res)
+                alert("Failed to Join Room! ");
             })
     }
 
@@ -176,10 +176,10 @@ var userName = User.Identity.Name;
         document.getElementById('message-input').placeholder = '';
         axios.post('/Chat/SendMessage', data)
             .then(res => {
-                console.log("Message Sent!")
+                //Do Something here
             })
             .catch(err => {
-                console.log("Failed to send message!")
+                alert("Failed To Send Message");
             })
     }
 
@@ -193,7 +193,7 @@ var userName = User.Identity.Name;
                 })
         })
         .catch(function (err) {
-            console.log(err)
+            alert("Error Starting Connection, Contact Administrator");
         })
 
     

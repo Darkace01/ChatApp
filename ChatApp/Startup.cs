@@ -20,6 +20,7 @@ using ChatApp.Data.Implementations;
 using ChatApp.Services.Contracts;
 using ChatApp.Services.Implementations;
 using ChatApp.Core;
+using WebEssentials.AspNetCore.Pwa;
 
 namespace ChatApp
 {
@@ -42,13 +43,14 @@ namespace ChatApp
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddScoped<SignInManager<User>,SignInManager<User>>();
-            services.AddScoped<UserManager<User>,UserManager<User>>();
+            services.AddScoped<SignInManager<User>, SignInManager<User>>();
+            services.AddScoped<UserManager<User>, UserManager<User>>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddIdentity<User,IdentityRole>(options => {
+            services.AddIdentity<User, IdentityRole>(options =>
+            {
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
@@ -59,6 +61,10 @@ namespace ChatApp
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddProgressiveWebApp(new PwaOptions()
+            {
+                RegisterServiceWorker = false
+            });
             services.AddSignalR();
             services.AddScoped(serviceType: typeof(IUnitOfWork), implementationType: typeof(UnitOfWork));
 

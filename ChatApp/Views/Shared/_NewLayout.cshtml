@@ -19,12 +19,12 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/adminlte.min.css" />
     <link rel="stylesheet" href="~/css/all.min.css" />
-    @* <link rel="stylesheet" href="~/css/OverlayScrollbars.min.css">  *@
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+    <link rel="apple-touch-icon" href="/img/logo512.png">
+    @* <link rel="stylesheet" href="~/css/OverlayScrollbars.min.css"> *@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
         integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc=" crossorigin="anonymous" />
     @*
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -32,45 +32,48 @@
         <partial name="_NavBarPartial" />
         @* <header>
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow ">
-                <div class="container">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ChatApp</a>
+            <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ChatApp</a>
 
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                        <partial name="_LoginPartial" />
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home"
-                                    asp-action="Index">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home"
-                                    asp-action="Find">Find</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home"
-                                    asp-action="Private">Private</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+            <partial name="_LoginPartial" />
+            <ul class="navbar-nav flex-grow-1">
+            <li class="nav-item">
+            <a class="nav-link text-light" asp-area="" asp-controller="Home"
+            asp-action="Index">Home</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link text-light" asp-area="" asp-controller="Home"
+            asp-action="Find">Find</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link text-light" asp-area="" asp-controller="Home"
+            asp-action="Private">Private</a>
+            </li>
+            </ul>
+            </div>
+            </div>
             </nav>
 
-        </header> *@
+            </header> *@
         <div class="main">
-            @if(User.Identity.IsAuthenticated){
-            @* <vc:room></vc:room> *@
-            <partial name="_SideBarPartial" />
-            }else{
-            <partial name="_SideBarPartial" />
+            @if (User.Identity.IsAuthenticated)
+            {
+                @* <vc:room></vc:room> *@
+                <partial name="_SideBarPartial" />
+            }
+            else
+            {
+                <partial name="_SideBarPartial" />
             }
             <div class="content-wrapper" class="pb-2">
                 <div class="container-fluid">
                     @RenderBody()
-                    
+
                 </div>
             </div>
         </div>
@@ -111,11 +114,11 @@
         </div>
     </div>
     @* <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
+        <aside class="control-sidebar control-sidebar-dark">
         <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
-    </div> *@
+        </aside>
+        <!-- /.control-sidebar -->
+        </div> *@
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -137,9 +140,9 @@
     <script src="~/js/Chart.min.js"></script>
     <script src="~/js/demo.js" asp-append-version="true"></script>
     @* <script src="~/js/dashboard3.js" asp-append-version="true"></script>
-    <script src="~/js/jquery.mousewheel.js"></script>
-    <script src="~/js/OverlayScrollbars.min.js"></script>
-    <script src="~/js/jquery.overlayScrollbars.min.js"></script> *@
+        <script src="~/js/jquery.mousewheel.js"></script>
+        <script src="~/js/OverlayScrollbars.min.js"></script>
+        <script src="~/js/jquery.overlayScrollbars.min.js"></script> *@
 
     @RenderSection("Scripts", required: false)
 </body>
