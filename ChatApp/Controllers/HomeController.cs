@@ -17,13 +17,11 @@ namespace ChatApp.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private ApplicationDbContext _ctx;
         private readonly IMessageService _messageService;
         private readonly IChatService _chatService;
         private readonly IUserService _userService;
-        public HomeController(ApplicationDbContext ctx, IMessageService messageService, IChatService chatService, IUserService userService)
+        public HomeController(IMessageService messageService, IChatService chatService, IUserService userService)
         {
-            _ctx = ctx;
             _messageService = messageService;
             _chatService = chatService;
             _userService = userService;
@@ -63,8 +61,7 @@ namespace ChatApp.Controllers
             {
                 UserId = GetUser()
             });
-            _ctx.Chats.Add(chat);
-            await _ctx.SaveChangesAsync();
+            await _chatService.CreateChat(chat);
 
             return RedirectToAction(nameof(Chat), new { id = chat.Id });
         }
@@ -134,8 +131,7 @@ namespace ChatApp.Controllers
                     UserId = userId,
                     Role = UserRole.Member
                 };
-                _ctx.ChatUsers.Add(chatUser);
-                await _ctx.SaveChangesAsync();
+                await _chatService.JoinChat(chatUser);
                 return RedirectToAction("Chat", "Home", new { id = Id });
             }
         }
