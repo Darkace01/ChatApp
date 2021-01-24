@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ChatApp.Data;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +20,7 @@ using ChatApp.Services.Contracts;
 using ChatApp.Services.Implementations;
 using ChatApp.Core;
 using WebEssentials.AspNetCore.Pwa;
+using Microsoft.Extensions.Hosting;
 
 namespace ChatApp
 {
@@ -57,10 +57,11 @@ namespace ChatApp
                 options.Password.RequiredLength = 6;
                 options.Password.RequireLowercase = false;
             })
-                .AddDefaultUI(UIFramework.Bootstrap4)
+                .AddDefaultUI()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddControllersWithViews();
+            services.AddRazorPages();
             services.AddProgressiveWebApp(new PwaOptions()
             {
                 RegisterServiceWorker = false
@@ -79,10 +80,10 @@ namespace ChatApp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext ctx)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext ctx)
         {
             ctx.Database.Migrate();
-            if (env.IsDevelopment())
+            if (env.ApplicationName == Environments.Development)
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
@@ -98,18 +99,18 @@ namespace ChatApp
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
+
+            app.UseRouting();
             app.UseAuthentication();
+            app.UseAuthorization();
 
-            app.UseSignalR(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapHub<ChatHub>("/chatHub");
-            });
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                    "default",
+                    "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapHub<ChatHub>("/chatHub");
+                endpoints.MapRazorPages();
             });
         }
     }
